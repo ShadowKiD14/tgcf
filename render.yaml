@@ -15,7 +15,6 @@ services:
         - source .venv/bin/activate
         - pip install tgcf
         - tgcf --version
-        - tgcf-web
     static_sites:
       - name: TGCF
         build_command: 'tgcf-web'
