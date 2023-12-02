@@ -1,0 +1,25 @@
+services:
+ - type: web
+    name: TGCF
+    build:
+      image: python:3.8
+      commands:
+        - apt-get update && apt-get install -y curl
+        - curl -sSL https://install.python-poetry.org | python3 -
+        - poetry config virtualenvs.create false
+        - poetry new tgcf-app
+        - cd tgcf-app
+        - poetry add tgcf
+        - echo "PASSWORD=shadow@#123" >> .env
+        - python3 -m venv .venv
+        - source .venv/bin/activate
+        - pip install tgcf
+        - tgcf --version
+        - tgcf-web
+    static_sites:
+      - name: TGCF
+        build_command: 'tgcf-web'
+        dir: '.'
+        env:
+          - key: PASSWORD
+            value: 'shadow@#123'
